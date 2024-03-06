@@ -1,11 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>당근디자인</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>당근디자인</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>웹</h1>
+  <header>
+    <p>부착방법</p>
+    <p>재단방법</p>
+    <p>사이즈선택</p>
+    <p>최종견적</p>
+  </header>
+  <main>
+    <section>
+      <div class="option op1"><h1>실외부착</h1></div>
+      <div class="option op1"><h1>실내부착</h1></div>
+    </section>
+    <section>
+      <div class="option op2"><h1>사각재단</h1></div>
+      <div class="option op2"><h1>모양재단</h1></div>
+    </section>
+    <section>
+      <div class="boxoption">
+        <div>
+          <p>가로</p>
+          <input id="input_width" type="number" value="500">
+          <p>mm</p>
+        </div>
+        <div>
+          <p>세로</p>
+          <input id="input_height" type="number" value="500">
+          <p>mm</p>
+        </div>
+      </div>
+
+      <div class="boxoption">
+        <div class="boxsize">
+          <p class="box_width">500mm</p>
+          <p class="box_height">500mm</p>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="result">
+        <p></p>
+        <p></p>
+        <p></p>
+        <p>배송료 : 4000원 </p>
+        <p></p>
+        <h3>합계 : 29000원 </h3>
+      </div>
+
+      <div class="boxoption">
+        <div class="boxsize">
+          <p class="box_width">500mm</p>
+          <p class="box_height">500mm</p>
+        </div>
+      </div>
+      <button id="copy">카카오톡으로 주문서 전송</button>
+    </section>
+
+    
+    
+    
+
+  </main>
+  <footer>
+    <button id="prev">이전</button>
+    <button id="next">다음</button>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
