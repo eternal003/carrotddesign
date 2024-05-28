@@ -222,8 +222,7 @@ document.getElementById('copy_button').addEventListener("click", function () {
     for (let index = 0; index < box_option.length; index++) {
       str += '투명스티커 ';
       str += box_option[index][0] + '*' + box_option[index][1] + 'mm ';
-      str += '(' + option_1(index) + ') ';
-      str += '(' + option_2(index) + ') ';
+      str += '(' + option_1(index) + ', '+ option_2(index) + ') ';
       str += box_option[index][4].toLocaleString() + '원';
 
       
