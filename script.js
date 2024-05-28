@@ -215,7 +215,7 @@ function final_price(price) {
 //     copyToClipboard(str);
 // })
 
-document.getElementById('copy_button').addEventListener("click", function () {
+document.getElementById('copy_button').addEventListener("click", function () { //복사버튼 클릭시
 
     var str = '';
 
@@ -240,3 +240,4 @@ document.getElementById('copy_button').addEventListener("click", function () {
   document.body.removeChild(textArea);
   alert("클립보드에 복사되었습니다!\n카카오톡 채널로 보내주세요!");
 });
+
