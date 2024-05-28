@@ -1,193 +1,243 @@
-var width_box = 500; //초기가로길이
-var height_box = 500; //초기세로길이
-var boxsize = document.getElementsByClassName("boxsize"); 
-var section = document.querySelectorAll("section");
+const input_width = document.getElementById("input_width"); //가로인풋
+const input_height = document.getElementById("input_height"); //세로인풋
+document.getElementById("add_button").addEventListener("click", add_button);
+var width_box = 0; //투명스티커 최대사이즈 1200*2500mm
+var height_box = 0;
+var option1 = 0; //부착방법, 재단 기본값0
+var option2 = 0;
+var box_num = 0; //배열시작숫자 0부터
 
-var final_option = [0, 0, 0, 0];
-var final_price;
-var final_result = [];
-var page = 0;
+var box_option = []; //모든 데이터
+// console.log(box_option.length);
+const element = document.querySelector('.op-select-1');
 
-document.getElementById("prev").addEventListener("click", prev_click);
-document.getElementById("next").addEventListener("click", next_click);
 
-const option = document.querySelectorAll(".option");
 
-option.forEach((number, index) => {
-  option[index].addEventListener("click", function option_set() {
-    if (index <= 1) {
-      final_option[0] = index + 1;
-      for (let i = 0; i <= 1; i++) {
-       
-        if (i == index) {
-          option[i].style.scale = "1.05";
-          option[i].style.border = "5px orange solid"; //선택된 박스효과
+
+input_width.addEventListener("change", function size_change(e) {//가로인풋 값 바뀌면 실행
+    width_box = parseInt(e.target.value);
+    size_chk();
+})
+
+input_height.addEventListener("change", function size_change(e) {//세로인풋 값 바뀌면 실행
+    height_box = parseInt(e.target.value);
+    size_chk();
+})
+
+function size_chk() { //최대사이즈 체크함수
+    if (width_box > height_box) {
+        if (width_box > 2500 || height_box > 1200) {
+            alert("최대사이즈 초과 \n 최대사이즈:1200*2500mm");
+            input_width.value = null;
+            input_height.value = null;
+            width_box = 0;
+            height_box = 0;
+            size_err();
+            
         } else {
-          option[i].style.scale = "1"; //미선택 박스효과
-          option[i].style.border = "0px orange solid";
+          document.getElementById('input_width').style.border = '0';
+            document.getElementById('input_height').style.border = '0';
         }
-      }
-      
     } else {
-      final_option[1] = index - 1;
-      for (let i = 2; i <= 3; i++) {
+        if (height_box > 2500 || width_box > 1200) {
+            alert("최대사이즈 초과 \n 최대사이즈:1200*2500mm");
+            input_width.value = null;
+            input_height.value = null;
+            width_box = 0;
+            height_box = 0;
+            size_err();
+
+        } else {
+          document.getElementById('input_width').style.border = '0';
+            document.getElementById('input_height').style.border = '0';
+        }
+    }
+}
+
+function size_err() {
+            element.classList.add('animate__animated', 'animate__shakeX', 'animate__faster');
+            element.addEventListener('animationend', () => {
+              element.classList.remove('animate__animated', 'animate__shakeX', 'animate__faster');// do something
+            });
+            document.getElementById('input_width').style.border = '2px solid red';
+            document.getElementById('input_height').style.border = '2px solid red';
+}
+
+function add_button() {
+    var chk_radio_1 = document.getElementsByName('option1');
+    var chk_radio_2 = document.getElementsByName('option2');
+    var sel_type_1 = null;
+    var sel_type_2 = null;
+    for (var i = 0; i < chk_radio_1.length; i++) {
+        if (chk_radio_1[i].checked == true) {
+            sel_type_1 = chk_radio_1[i].value;
+            
+        }
         
-        if (i == index) {
-          option[i].style.scale = "1.05"; //선택된 박스효과
-          option[i].style.border = "5px orange solid"; 
+    }
+    for (var i = 0; i < chk_radio_2.length; i++) {
+        if (chk_radio_2[i].checked == true) {
+            sel_type_2 = chk_radio_2[i].value;
+            
+        }
+        
+    }
+
+    if (sel_type_1 == null || sel_type_2 == null || width_box <= 0 || height_box <= 0) { //미선택시
+        alert("제작옵션을 선택해주세요!");
+    } else {//전부 맞게 선택 했을때 실행
+        box_num = box_option.length;
+        box_option[box_num] = []; //각 배열 배열선언
+        box_option[box_num][0] = width_box;
+        box_option[box_num][1] = height_box;
+        box_option[box_num][2] = sel_type_1;
+        box_option[box_num][3] = sel_type_2;
+        box_option[box_num][4] = calculatePrice(box_option[box_num][0], box_option[box_num][1], box_option[box_num][3]);
+        //console.log(box_num, box_option[box_num][0], box_option[box_num][1], box_option[box_num][2], box_option[box_num][3], box_option[box_num][4]);
+        add_box();
+      
+        //console.log(box_option.length);
+        
+
+    }
+  }
+
+
+    function add_box() {
+
+      document.querySelector('#table').innerHTML = ""; 
+      for (let index = 0; index < box_option.length; index++) {
+        var a = '<tr><th>' + (index+1) + '</th><th>' +
+         box_option[index][0]+ '*' + box_option[index][1] +
+          'mm</th><th>'+ option_1(index) + '</th><th>' + option_2(index) + '</th><th>' +
+          box_option[index][4].toLocaleString() + '원</th><th><img class="delete-button" src="./SVG/check.svg" alt="삭제"></th></tr>';
+        document.querySelector('#table').insertAdjacentHTML('beforeend', a);
+        
+
+      }
+        
+        document.querySelector('#final-price').innerText = final_price(box_option);
+    }
+
+    function option_1(index) {
+        if(box_option[index][2] == 1) {
+            return '실내부착';
+          } else {
+            return '실외부착';
+          }
+    }
+    function option_2(index) {
+        if(box_option[index][3] == 1) {
+            return '사각재단';
+          } else {
+            return '모양재단';
+          }
+    }
+
+
+    function calculatePrice(width, height, option) {
+        const area = width/10 * height/10;
+        var moyang = 0;
+        if (option == 2) {
+            moyang = 5000;
+        }
+
+        if (area <= 900) {
+          return 32000+ moyang;
+        } else if (area <= 2500) {
+          return 34000+ moyang;
+        } else if (area <= 3600) {
+          return 36000+ moyang;
+        } else if (area <= 4900) {
+          return 38000+ moyang;
+        } else if (area <= 8100) {
+          return 42000+ moyang;
         } else {
-          option[i].style.scale = "1"; //미선택 박스효과
-          option[i].style.border = "0px orange solid";
+          return Math.round((area * 2.2 * 2.1) / 1000, 100)*1000 + moyang;
         }
       }
+    
+
+function final_price(price) {
+      var a = 0;
+      for (let index = 0; index < price.length; index++) {
+        a = a + price[index][4];
+        
+      }
+
+      return a.toLocaleString() + '원';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('table');
+  
+      container.addEventListener('click', (event) => {
+          if (event.target && event.target.classList.contains('delete-button')) {
+              const images = Array.from(container.getElementsByClassName('delete-button'));
+              const index = images.indexOf(event.target);
+              //console.log(`Image ${index + 1} clicked`); //지우기누르면 실행되는 index는 누른버튼의 인덱스값
+              document.querySelectorAll(".delete-button").item(index).parentNode.parentNode.remove();
+              box_option.splice(index, 1);
+              add_box();
+              
+          }
+      });
+  });
+
+
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert("클립보드에 복사되었습니다!\n카카오톡 채널로 보내주세요!");
+    }).catch(err => {
+        console.error('클럽보드 복사 에러 : ', err);
+    });
+}
+
+//   document.getElementById('copy_button').addEventListener("click", function copy_button(e) {//카피버튼
+//     var str = '';
+
+//     for (let index = 0; index < box_option.length; index++) {
+//       str += '투명스티커 ';
+//       str += box_option[index][0] + '*' + box_option[index][1] + 'mm ';
+//       str += '(' + option_1(index) + ') ';
+//       str += '(' + option_2(index) + ') ';
+//       str += box_option[index][4].toLocaleString() + '원';
+
       
+
+
+//       str += '\n';
+//     }
+//       // str += '배송료 4,000원\n';
+//       str += '총' + box_option.length + '장\n' + '합계 : ' + final_price(box_option);
+
+//     console.log(str);
+//     copyToClipboard(str);
+// })
+
+document.getElementById('copy_button').addEventListener("click", function () {
+
+    var str = '';
+
+    for (let index = 0; index < box_option.length; index++) {
+      str += '투명스티커 ';
+      str += box_option[index][0] + '*' + box_option[index][1] + 'mm ';
+      str += '(' + option_1(index) + ') ';
+      str += '(' + option_2(index) + ') ';
+      str += box_option[index][4].toLocaleString() + '원';
+
+      
+
+
+      str += '\n';
     }
-    console.log(final_option);
-  })
+      // str += '배송료 4,000원\n';
+      str += '총' + box_option.length + '장\n' + '합계 : ' + final_price(box_option);
+  const textArea = document.createElement("textarea");
+  document.body.appendChild(textArea);
+  textArea.value = str;
+  textArea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textArea);
+  alert("클립보드에 복사되었습니다!\n카카오톡 채널로 보내주세요!");
 });
-
-
-function all_reset() { //초기세팅
-  for (let i = 0; i < section.length; i++) {//1페이지를 제외하고 전부 비활성화
-    if (!(i == page)) {
-      section[i].style.visibility = "hidden";
-      section[i].style.opacity = "0";
-    } else {
-      section[i].style.visibility = "visible";
-      section[i].style.opacity = "1";
-    }
-  }
-}
-
-all_reset(); //초기세팅
-const input_width = document.getElementById("input_width");
-const input_height = document.getElementById("input_height");
-
-input_width.addEventListener("change", function size_change(e) {//인풋 값 바뀌면 실행
-  width_box = parseInt(e.target.value);
-  console.log(width_box);
-  resize_box();
-})
-input_height.addEventListener("change", function size_change(e) {
-  height_box = parseInt(e.target.value);
-  console.log(height_box);
-  resize_box();
-})
-
-
-function resize_box(){ //박스 사이즈 리셋
-  for (let i = 0; i <= 1; i++) {
-    document.getElementsByClassName("box_width")[i].innerText = width_box + "mm";
-    document.getElementsByClassName("box_height")[i].innerText = height_box + "mm";
-  }
-    
- 
-  
-  if(width_box >= height_box){
-    for (let i = 0; i <= 1; i++) {
-      boxsize[i].style.width = 300 + "px"; 
-      boxsize[i].style.height = 300*(height_box/width_box) + "px"; 
-    }
-    
-  } else if(width_box < height_box){
-    for (let i = 0; i <= 1; i++) {
-      boxsize[i].style.width = 300*(width_box/height_box) + "px"; 
-      boxsize[i].style.height = 300 + "px"; 
-    }
-    
-  } else {
-    alert("숫자만 입력해주세요");
-    console.log("사이즈 에러");
-  }
-    
-}
-
-function next_click() {
-  if (page == 3) {
-    console.log("마지막페이지");
-  } else {
-  page++;
-  if (page == 3) {
-    result();
-  }
-  for (let i = 0; i < section.length; i++) {
-    if (!(i == page)) {
-      section[i].style.visibility = "hidden";
-      section[i].style.opacity = "0";
-    } else {
-      section[i].style.visibility = "visible";
-      section[i].style.opacity = "1";
-    }
-  }
-  }
-} 
-
-function prev_click() {
-  if (page == 0) {
-    console.log("첫페이지");
-  } else {
-  page--;
-  for (let i = 0; i < section.length; i++) {
-    if (!(i == page)) {
-      section[i].style.visibility = "hidden";
-      section[i].style.opacity = "0";
-    } else {
-      section[i].style.visibility = "visible";
-      section[i].style.opacity = "1";
-    }
-  }
-}
-}
-
-function result() {
-  final_result[0] = "투명스티커 " + width_box + "*" + height_box + "mm " + calculatePrice(width_box, height_box) +"원";
-  document.querySelectorAll(".result p")[0].innerText = final_result[0];
-  if (final_option[0] == 1) {
-    final_result[1] = "부착방법 : 실외부착";
-  } else {
-    final_result[1] = "부착방법 : 실내부착";
-  }
-  document.querySelectorAll(".result p")[1].innerText = final_result[1];
-
-  if (final_option[1] == 1) {
-    final_result[2] = "재단방법 : 사각재단";
-    final_price = 4000 + calculatePrice(width_box, height_box);
-  } else {
-    final_result[2] = "재단방법 : 모양재단 +5000원";
-    final_price = 4000 + 5000 + calculatePrice(width_box, height_box);
-  }
-  document.querySelectorAll(".result p")[2].innerText = final_result[2];
-
-  final_result[3] = "배송료 : 4000원";
-  final_result[4] = "합계 : " + final_price + "원";
-  document.querySelectorAll(".result h3")[0].innerText = final_result[4];
-  console.log(final_result);
-}
-function calculatePrice(width, height) {
-  const area = width/10 * height/10;
-
-  if (area <= 900) {
-    return 32000;
-  } else if (area <= 2500) {
-    return 34000;
-  } else if (area <= 3600) {
-    return 36000;
-  } else if (area <= 4900) {
-    return 38000;
-  } else if (area <= 8100) {
-    return 42000;
-  } else {
-    return Math.round((area * 2.2 * 2.1) / 1000, 100)*1000;
-  }
-}
-document.getElementById("copy").addEventListener("click", function () {
-  navigator.clipboard.writeText(
-    final_result[0] + "\n" +  final_result[1] + "\n" +  final_result[2] + "\n" +  final_result[3] + "\n" +  final_result[4]
-  );
-
-  setTimeout(function () {
-      alert("클립보드에 복사되었습니다. 카카오톡채널로 붙여넣기해주세요");
-      window.location = 'http://pf.kakao.com/_bxmFqxb/chat';
-    }, 1000);
-  
-})
