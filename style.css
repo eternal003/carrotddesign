@@ -146,6 +146,7 @@ body {
   border-radius: 5px;
   transition: border-color 0.3s ease;
   position: relative;
+  transition: all 0.1s;
 }
 
 .custom-radio input {
@@ -157,6 +158,9 @@ body {
   height: 100%;
   cursor: pointer;
   margin: 0;
+}
+.custom-radio:hover {
+ scale: 1.1;
 }
 
 .radio-content {
@@ -170,6 +174,7 @@ body {
   box-sizing: border-box; /* 테두리와 패딩을 포함한 크기 조절 */
   border-radius: 15px;
   position: relative;
+  transition: 0.1s;
 }
 .radio-content h3{
   margin: 0;
@@ -248,6 +253,8 @@ table{
   /* border: 1px black solid; */
   border-collapse: collapse;
   margin-bottom: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
 }
 table thead {
   background-color: #f4a261;
@@ -314,7 +321,7 @@ table tfoot th{
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 }
-table tfoot th span:nth-of-type(2){
+table tfoot th span:nth-of-type(3){
   color: red;
 }
 

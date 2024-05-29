@@ -47,7 +47,7 @@ body {
   }
 
   .op-wrap {
-    width: 90%;
+    width: 85%;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -60,9 +60,9 @@ body {
     justify-content: center;
     align-items: center;
   }
-  .op-wrap h2{
+  /* .op-wrap h2{
     margin-left: 15px;
-  }
+  } */
   .op-wrap h2::before{
         content:"ㅣ";
         width:10px;
@@ -229,9 +229,9 @@ footer{
   justify-content: flex-start;
   align-items: flex-start;
 }
-#h2-wrap h2{
+/* #h2-wrap h2{
     margin-left: 15px;
-}
+} */
 #h2-wrap h2::before{
         content:"ㅣ";
         width:10px;
@@ -240,11 +240,13 @@ footer{
 
   }
 table{
-  width: 100%;
-  /* box-shadow: 1px 1px 1px 1px gray; */
+  width: 90%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
   /* border: 1px black solid; */
   border-collapse: collapse;
   margin-bottom: 30px;
+  font-size: 0.9rem;
 }
 table thead {
   background-color: #f4a261;
@@ -253,9 +255,14 @@ table thead {
 table thead tr th{
   font-weight: 100;
   color: white;
-  height: 30px;
+  padding: 10px;
 }
-
+table thead th:nth-of-type(1) {
+  border-top-left-radius: 15px;
+}
+table thead th:nth-of-type(6){
+  border-top-right-radius: 15px;
+}
 
 table tbody{
   background-color: #F8F9FA;
@@ -271,9 +278,11 @@ table tbody tr th:nth-of-type(6){
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 table tbody tr th {
   height: 30px;
+
 }
 /* .delete-button{
   width: 1.5rem;
@@ -311,6 +320,10 @@ table tfoot th{
 }
 table tfoot th span:nth-of-type(2){
   color: red;
+}
+table tfoot th{
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 #copy_button{

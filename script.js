@@ -159,7 +159,7 @@ function add_button() {
     
 
 function final_price(price) {
-      var a = 0;
+      var a = 4000;
       for (let index = 0; index < price.length; index++) {
         a = a + price[index][4];
         
@@ -230,8 +230,9 @@ document.getElementById('copy_button').addEventListener("click", function () { /
 
       str += '\n';
     }
-      // str += '배송료 4,000원\n';
-      str += '총' + box_option.length + '장\n' + '합계 : ' + final_price(box_option);
+    str += '배송료 4,000원\n';
+      str += '총' + box_option.length + '장 ' + '합계 : ' + final_price(box_option);
+      
   const textArea = document.createElement("textarea");
   document.body.appendChild(textArea);
   textArea.value = str;
