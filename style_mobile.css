@@ -265,9 +265,20 @@ table thead th:nth-of-type(6){
 }
 
 table tbody{
-  background-color: #F8F9FA;
-  font-size: 0.85rem;
+  background-color: #F8F9FA;  
 }
+@media screen and (max-width: 425px){
+  table {
+    font-size: 0.8rem;
+  }
+}
+@media screen and (max-width: 320px){
+  table {
+    font-size: 0.65rem;
+  }
+}
+
+
 
 table tbody tr{
   border-bottom: 1px solid rgb(208, 208, 208);
@@ -318,7 +329,7 @@ table tfoot th{
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 }
-table tfoot th span:nth-of-type(3){
+table tfoot th span:nth-of-type(2){
   color: red;
 }
 table tfoot th{
