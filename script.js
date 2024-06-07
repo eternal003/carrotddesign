@@ -239,6 +239,9 @@ document.getElementById('copy_button').addEventListener("click", function () { /
   textArea.select();
   document.execCommand("copy");
   document.body.removeChild(textArea);
-  alert("클립보드에 복사되었습니다!\n카카오톡 채널로 보내주세요!");
+  let kakao_con = confirm("클립보드로 복사되었습니다! \n카카오톡채널로 이동하시겠습니까?");
+  if (kakao_con) {
+    window.open("http://pf.kakao.com/_bxmFqxb/chat", "_blank");
+  }
 });
 
