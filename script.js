@@ -241,7 +241,7 @@ document.getElementById('copy_button').addEventListener("click", function () { /
   document.body.removeChild(textArea);
   let kakao_con = confirm("클립보드로 복사되었습니다! \n카카오톡채널로 이동하시겠습니까?");
   if (kakao_con) {
-    window.open("http://pf.kakao.com/_bxmFqxb/chat", "_blank");
+    window.open("https://blog.naver.com/carrotd/222623806113", "_blank");
   }
 });
 
