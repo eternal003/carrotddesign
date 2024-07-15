@@ -153,7 +153,7 @@ function add_button() {
         } else if (area <= 8100) {
           return 42000+ moyang;
         } else {
-          return Math.round((area * 2.2 * 2.25) / 1000, 100)*1000 + moyang;
+          return Math.round((area * 2.05 * 2.25) / 1000, 100)*1000 + moyang;
         }
       }
     
